@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: ubuntu
     steps:
-      - run: apt install npm git reprepro gnupg
+      - run: apt install npm git reprepro gpg
       - run: npm i -g cordova
       - run: ./update-version.sh
       - run: cordova platform add browser
