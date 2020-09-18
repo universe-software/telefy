@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+    <title>Telefy</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+    <link rel="stylesheet" href="lib/bootstrap.css" />
+    <link rel="stylesheet" href="lib/fontawesome.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="h-100 d-flex flex-column text-white">
+    <nav class="navbar justify-content-start navbar-dark bg-dark shadow">
+        <a class="navbar-brand" href="index.html">
+            <img src="favicon.png" class="d-inline-block align-center" style="width: 2em" />
+            Telefy
+        </a>
+        <button class="btn fas fa-arrow-left text-white" onclick="history.back()"></button>
+        <span id="room-id" class="font-weight-bold">Meeting</span>
+    </nav>
+
+    <template id="template:video">
+        <div class="tab-pane d-flex flex-column border border-secondary" style="flex: 1">
+            <div class="telefy-window-bar p-1 bg-dark d-flex align-items-center">
+                <i class="fas fa-video pr-2"></i>
+                <span class="telefy-window-title">Video Element</span>
+                
+                <hr/>
+
+                <!--<button class="telefy-move-back-btn btn">
+                    <i class="fas fa-chevron-left text-white"></i>
+                </button>
+                <button class="telefy-move-btn btn">
+                    <i class="fas fa-arrows-alt text-white"></i>
+                </button>
+                <button class="telefy-move-forward-btn btn">
+                    <i class="fas fa-chevron-right text-white"></i>
+                </button>
+
+                <button class="telefy-wrap-btn btn">
+                    <i class="far fa-square text-white"></i>
+                </button>-->
+                <button class="telefy-controls-btn btn fas fa-ellipsis-h text-white"></button>
+            </div>
+            <div class="telefy-video-content bg-muted d-inline-block" style="flex: 1"></div>
+        </div>
+    </template>
+
+    <template id="template:group">
+        <div class="tab-pane d-flex flex-column border border-secondary" style="flex: 1">
+            <div class="telefy-window-bar p-1 bg-dark d-flex align-items-center">
+                <button class="telefy-group-mode-btn btn"><i class="fas text-white"></i></button>
+                <span class="telefy-window-title">Container</span>
+                
+                <hr/>
+                <ul class="nav nav-pills rounded"></ul>
+                
+                <!--<button class="telefy-move-back-btn btn">
+                    <i class="fas fa-chevron-left text-white"></i>
+                </button>
+                <button class="telefy-move-btn btn">
+                    <i class="fas fa-arrows-alt text-white"></i>
+                </button>
+                <button class="telefy-move-forward-btn btn">
+                    <i class="fas fa-chevron-right text-white"></i>
+                </button>
+
+                <button class="telefy-wrap-btn btn">
+                    <i class="far fa-square text-white"></i>
+                </button>-->
+                <button class="telefy-controls-btn btn fas fa-ellipsis-h text-white"></button>
+            </div>
+            <div class="telefy-group-content d-flex" style="flex: 1"></div>
+        </div>
+    </template>
+
+    <template id="template:group-mode-popover">
+        <div class="telefy-group-mode-popover bg-white rounded shadow">
+            <button class="btn telefy-group-mode-horizontal"><i class="fas fa-grip-lines-vertical"></i></button>
+            <button class="btn telefy-group-mode-vertical"><i class="fas fa-grip-lines"></i></button>
+            <button class="btn telefy-group-mode-tabs"><i class="fas fa-ellipsis-h"></i></button>
+        </div>
+    </template>
+
+    <template id="template:window-controls-popover">
+        <div class="bg-white rounded shadow">
+            <button class="telefy-move-back-btn btn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="telefy-move-btn btn">
+                <i class="fas fa-arrows-alt"></i>
+            </button>
+            <button class="telefy-move-forward-btn btn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <button class="telefy-wrap-btn btn">
+                <i class="far fa-square"></i>
+            </button>
+        </div>
+    </template>
+
+    <script src="lib/socket.io.js"></script>
+    <script src="lib/RTCMultiConnection.js"></script>
+    <script src="lib/popper.js"></script>
+    <script src="window-manager.js"></script>
+    <script src="meeting.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/bootstrap.js"></script>
+</body>
+</html>

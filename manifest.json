@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "HelloCordova",
+  "short_name": "HelloCordova",
+  "version": "telefy",
+  "description": "A general purpose internet communications app for chat, forums, message boards, etc.\n        It uses peer-to-peer communication technology so there's no need for accounts or a centralized service.",
+  "author": "Hyperdraw",
+  "icons": [],
+  "start_url": "index.html"
+}

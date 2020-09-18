@@ -1,0 +1,3 @@
+.telefy-group-content.tab-content>:not(.telefy-group-mode-popover):not(.active) {
+    display: none !important;
+}
