@@ -1,0 +1,33 @@
+{
+  "name": "telefy",
+  "displayName": "Telefy",
+  "version": "0.2.0",
+  "description": "A general purpose internet communications app for chat, forums, message boards, etc. It uses peer-to-peer communication technology so there's no need for accounts or a centralized service.",
+  "homepage": "https://universe-software.github.io/telefy",
+  "repository": "https://github.com/universe-software/telefy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": {
+    "name": "Hyperdraw",
+    "email": "plexi.eater+universe@gmail.com",
+    "url": "https://github.com/Hyperdraw"
+  },
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "cordova-electron": "^1.1.1",
+    "cordova-plugin-whitelist": "^1.3.4"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {}
+    },
+    "platforms": [
+      "electron"
+    ]
+  }
+}

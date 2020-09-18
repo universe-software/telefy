@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+    <title>Chat | Telefy</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="icon.png" type="image/png" />
+    <link rel="stylesheet" href="lib/bootstrap.css" />
+    <link rel="stylesheet" href="lib/fontawesome.css" />
+</head>
+<body class="h-100 d-flex flex-column bg-dark text-white">
+    <nav class="navbar justify-content-start navbar-dark bg-dark shadow">
+        <a class="navbar-brand" href="index.html">
+            <img src="favicon.png" class="d-inline-block align-center" style="width: 2em" />
+            Telefy
+        </a>
+        <button class="btn fas fa-arrow-left text-white" onclick="history.back()"></button>
+        <span id="room-id" class="font-weight-bold"></span>
+        <span id="subthread" class="d-none ml-2">
+            <i class="fas fa-chevron-right"></i>
+            Reply Thread
+        </span>
+    </nav>
+
+    <main class="container mt-3" style="flex: 1; overflow-y: scroll;"></main>
+    <template id="template:message">
+        <div class="card border-0 shadow mb-3" style="border-radius: 0.5rem; overflow: hidden;">
+            <div class="card-body bg-secondary">
+                <div class="d-flex justify-content-between">
+                    <h6 class="card-title font-weight-bold"></h6>
+                    <a class="telefy-message-timestamp" style="color: cyan">ede0934-8cenjkd</a>
+                </div>
+                <div class="telefy-message-content"></div>
+                <form class="float-right">
+                    <span class="telefy-message-replies">0</span>
+                    Repl<span class="telefy-message-replies-plural">ies</span>
+                    <input type="hidden" name="room" />
+                    <input type="hidden" name="thread" />
+                    <button type="submit" class="btn" style="color: cyan">
+                        <i class="fas fa-comments"></i>
+                        Visit Thread
+                    </button>
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <footer class="container p-3 border-top border-secondary">
+        <form id="send-form">
+            <div class="form-group">
+                <label for="message-input">Type A Message:</label>
+                <div class="input-group">
+                    <input id="message-input" class="form-control" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success">
+                            Send
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </footer>
+
+    <div id="edit-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="modal-title">Edit History</h5>
+                        <div>
+                            <button id="edit-text-btn" class="btn text-primary">Edit</button>
+                            <button class="close" data-dismiss="modal">
+                                <i class="fas fa-times text-white"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-text-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5>Edit Message</h5>
+                    <button class="close" data-dismiss="modal">
+                        <i class="fas fa-times text-white"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-form">
+                        <div class="form-group">
+                            <label for="message-input">Edit Your Message:</label>
+                            <div class="input-group">
+                                <input id="edit-input" class="form-control" />
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-success">
+                                        Edit
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template id="template:edit">
+        <div class="card border-0 shadow mb-3" style="border-radius: 0.5rem; overflow: hidden;">
+            <div class="card-body bg-secondary">
+                <h6 class="card-title font-weight-bold"></h6>
+                <div class="telefy-edit-content"></div>
+            </div>
+        </div>
+    </template>
+
+    <script src="lib/socket.io.js"></script>
+    <script src="lib/RTCMultiConnection.js"></script>
+    <script src="lib/openpgp.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/bootstrap.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>

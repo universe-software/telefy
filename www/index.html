@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+    <title>Telefy</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+    <link rel="manifest" href="telefy.webmanifest" />
+    <link rel="stylesheet" href="lib/bootstrap.css" />
+    <link rel="stylesheet" href="lib/fontawesome.css" />
+</head>
+<body class="h-100 bg-dark text-white">
+    <nav class="navbar navbar-dark bg-dark shadow">
+        <a class="navbar-brand" href="#">
+            <img src="favicon.png" class="d-inline-block align-center" style="width: 2em" />
+            Telefy
+        </a>
+    </nav>
+
+    <main class="container mt-3">
+        <div class="telefy-no-user-key d-none">
+            <h1>
+                <i class="fas fa-exclamation-triangle text-warning"></i>
+                No User Key
+            </h1>
+            <hr/>
+            <p>User keys verify your identity and prevent impersonation.
+            You must create or upload a private key.</p>
+            <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#manage-keys-modal">
+                <i class="fas fa-key"></i>
+                Manage Keys
+            </button>
+        </div>
+        
+        <div class="telefy-has-user-key d-none">
+            <h1>Join or Create A Room</h1>
+            <form action="chat.html">
+                <div class="form-group">
+                    <label for="room-id">Room ID:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button id="random-id-btn" type="button" class="btn btn-primary">
+                                <i class="fas fa-dice-three"></i>
+                                Random ID
+                            </button>
+                        </div>
+                        <input id="room-id" name="room" class="form-control" required />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-success">
+                                Join
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="fixed-bottom bg-dark p-2 border-top border-secondary">
+        <span class="telefy-user-key-text">No Private Key</span>
+        <button class="btn text-primary" data-toggle="modal" data-target="#manage-keys-modal">
+            <i class="fas fa-key"></i>
+            Manage Keys
+        </button>
+    </footer>
+
+    <div id="manage-keys-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h4 class="modal-title">Manage Keys</h4>
+                    <button class="close" data-dismiss="modal">
+                        <i class="fas fa-times text-white"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h5>Your User Key</h5>
+                        <hr/>
+                        <p>Used for signing messages so others can verify it was you who sent it.</p>
+                        <div class="telefy-has-user-key d-none">
+                            <p class="telefy-user-key-text font-weight-bold"></p>
+                            <p>For sharing your key with others, export your public key.
+                            To sign in as this user on another device, export your private key.</p>
+                            <a id="export-public-key-btn" class="btn btn-block btn-primary">
+                                <i class="fas fa-download"></i>
+                                Export Public Key
+                            </a>
+                            <p id="no-public-key-message" class="text-danger d-none">Can't export public key because it isn't known. (Private key was imported from a file.)</p>
+                            <a id="export-private-key-btn" class="btn btn-block btn-warning">
+                                <i class="fas fa-download"></i>
+                                Export Private Key
+                            </a>
+                            <button id="sign-out-btn" class="btn btn-block btn-success">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Sign Out
+                            </button>
+                        </div>
+                        <div class="telefy-no-user-key d-none">
+                            You don't have a user key.
+                            <button id="generate-user-key-btn" class="btn btn-block btn-success">
+                                <i class="fas fa-plus"></i>
+                                Generate New Key
+                            </button>
+                            <button id="import-private-key-btn" class="btn btn-block btn-primary">
+                                <i class="fas fa-upload"></i>
+                                Import Private Key
+                            </button>
+                        </div>
+                    </div>
+
+                    <h5>Trust Keyring</h5>
+                    <hr/>
+                    <p>The public keys of other users you know, used for verifying their messages.
+                    A user shows up here if you receive a message from them or if you manually import their key.</p>
+                    <button id="import-public-key-btn" class="btn btn-block btn-success mb-3">
+                        <i class="fas fa-plus"></i>
+                        Import Public Key
+                    </button>
+                    <ul id="trust-keyring" class="list-group shadow"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template id="template:keyring-entry">
+        <li class="list-group-item bg-dark">
+            <span class="telefy-keyring-entry-name"></span>
+            <span class="float-right">
+                <a class="btn text-primary telefy-keyring-entry-export-btn">Export Key</a>
+                <button class="btn text-danger telefy-keyring-entry-remove-btn">
+                    <i class="far fa-trash-alt"></i>
+                </button>
+            </span>
+        </li>
+    </template>
+
+    <div id="generate-key-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h4 class="modal-title">Generate User Key</h4>
+                    <button class="close" data-dismiss="modal">
+                        <i class="fas fa-times text-white"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="generate-key-form">
+                        <div class="form-group">
+                            <label for="key-name">Name:</label>
+                            <input id="key-name" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="key-email">Email:</label>
+                            <input id="key-email" class="form-control" required />
+                        </div>
+                        <button type="submit" class="btn btn-block btn-success">
+                            <i class="fas fa-plus"></i>
+                            Generate
+                        </button>
+                    </form>
+                    <div id="generating-key" class="d-none">
+                        <div class="spinner-border text-success"></div>
+                        Generating Key...
+                    </div>
+                    <div id="generated-key" class="d-none">
+                        <p>Key generated successfully!</p>
+                        <button class="btn btn-block btn-danger" data-dismiss="modal">
+                            <i class="fas fa-times"></i>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="import-key-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h4 class="modal-title">Import Key</h4>
+                    <button class="close" data-dismiss="modal">
+                        <i class="fas fa-times text-white"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="import-key-message"></p>
+                    <form id="import-key-form">
+                        <div class="form-group">
+                            <label for="key-file">Select Key File:</label>
+                            <input type="file" id="key-file" class="form-control-file" required />
+                        </div>
+                        <button type="submit" class="btn btn-block btn-success">
+                            <i class="fas fa-upload"></i>
+                            Import
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lib/openpgp.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/bootstrap.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
