@@ -7,8 +7,7 @@ jobs:
     steps:
       - run: apt install npm git reprepro gnupg
       - run: npm i -g cordova
-      - run: sed -i -r "s/version=\".*\"/version=\"0.$CIRCLECI_BUILD_NUM\"/"
-      - run: sed -i -r "s/\"version\": \".*\"/\"version\": \"0.$CIRCLECI_BUILD_NUM\"/"
+      - run: ./update-version.sh
       - run: cordova platform add browser
       - run: cordova build browser --release
       - run: cordova platform add electron
