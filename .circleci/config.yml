@@ -21,13 +21,13 @@ jobs:
       - run: find telefy -type f -exec rm {} ';'
       - run: find telefy -type d -not -name .git -exec rm -r {} ';'
       - run: cp -r platforms/browser/www/. telefy
-      - run: cd telefy && git add . && git commit -m "CircleCI Build #$CIRCLECI_BUILD_NUM"
+      - run: cd telefy && git add . && git commit -m "CircleCI Build \#$CIRCLE_BUILD_NUM"
       - run: cd telefy && git remote add github "https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/universe-software/telefy.git" && git push github www
       - run: git clone 'https://github.com/universe-software/debian-repo.git'
       - run: reprepro -b debian-repo remove stable org.universe_software.telefy
       - run: wget "$PRIVATE_KEY_URL" -O universe-secret.gpg && gpg --import universe-secret.gpg && rm universe-secret.gpg
       - run: reprepro -b debian-repo includedeb stable platforms/electron/build/*.deb
-      - run: cd debian-repo && git add . && git commit -m "Telefy CircleCI Build #$CIRCLECI_BUILD_NUM"
+      - run: cd debian-repo && git add . && git commit -m "Telefy CircleCI Build \#$CIRCLE_BUILD_NUM"
       - run: cd debian-repo && git remote add github "https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/universe-software/debian-repo.git" && git push github master
 workflows:
   version: 2
