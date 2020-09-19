@@ -9,6 +9,7 @@ jobs:
       - run: apt update
       - run: apt install -y npm git reprepro gnupg
       - run: npm i -g cordova
+      - checkout
       - run: ./update-version.sh
       - run: cordova platform add browser
       - run: cordova build browser --release
