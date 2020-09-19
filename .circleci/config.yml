@@ -34,7 +34,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - ubuntu:
+      - build:
           filters:
             branches:
               only:
