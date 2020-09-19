@@ -17,8 +17,8 @@ jobs:
       - run: rm -r node_modules/app-builder-bin && cp -a app-builder-bin node_modules
       - run: cordova build electron --release
       - run: git clone 'https://github.com/universe-software/telefy.git'
+      - run: cd telefy && git branch www && git checkout www -- && git pull origin www
       - run: cp -r platforms/browser/www/. telefy
-      - run: cd telefy && git checkout www
       - run: cd telefy && git add . && git commit -m "CircleCI Build \#$CIRCLE_BUILD_NUM"
       - run: cd telefy && git remote add github "https://$GIT_COMMITTER_NAME:$GITHUB_PASSWORD@github.com/universe-software/telefy.git" && git push github www
       - run: git clone 'https://github.com/universe-software/debian-repo.git'
