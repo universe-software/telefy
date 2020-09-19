@@ -18,8 +18,6 @@ jobs:
       - run: cordova build electron --release
       - run: git clone 'https://github.com/universe-software/telefy.git'
       - run: cd telefy && git checkout www
-      - run: find telefy -type f -exec rm {} ';'
-      - run: find telefy -type d -not -name .git -exec rm -r {} ';'
       - run: cp -r platforms/browser/www/. telefy
       - run: cd telefy && git add . && git commit -m "CircleCI Build \#$CIRCLE_BUILD_NUM"
       - run: cd telefy && git remote add github "https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/universe-software/telefy.git" && git push github www
