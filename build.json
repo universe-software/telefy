@@ -1,7 +1,7 @@
 {
     "electron": {
         "linux": {
-            "package": ["deb", "pacman", "snap", "AppImage", "tar.gz"]
+            "package": ["deb"]
         }
     }
 }
