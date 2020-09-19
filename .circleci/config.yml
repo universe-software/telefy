@@ -5,6 +5,7 @@ jobs:
     docker:
       - image: ubuntu
     steps:
+      - run: ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime
       - run: apt update
       - run: apt install -y npm git reprepro gnupg
       - run: npm i -g cordova
